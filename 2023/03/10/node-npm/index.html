@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/blog.png">
+  <link rel="icon" href="/img/blog.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="人生几何">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="npm与包1、包  什么是包  Node.js中的第三方模块又叫做包。 就像电脑和计算机指的是相同的东西，第三方模块和包指的是同一个概念，只不过叫法不同  包的来源  不同于Node.js中的内置模块与自定义模块，包是由第三方个人或团队开发出来的，免费供所有人使用  注意：Node.js中的包都是免费且开源的，不需要付费即可免费下载使用  为什么需要包  由于Node.js的内置模块仅提供了一些底">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm与包">
+<meta property="og:url" content="http://example.com/2023/03/10/node-npm/index.html">
+<meta property="og:site_name" content="251-4">
+<meta property="og:description" content="npm与包1、包  什么是包  Node.js中的第三方模块又叫做包。 就像电脑和计算机指的是相同的东西，第三方模块和包指的是同一个概念，只不过叫法不同  包的来源  不同于Node.js中的内置模块与自定义模块，包是由第三方个人或团队开发出来的，免费供所有人使用  注意：Node.js中的包都是免费且开源的，不需要付费即可免费下载使用  为什么需要包  由于Node.js的内置模块仅提供了一些底">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hbfile.huaban.com/img/home/banner/a3e4f1047d95d7b87d0faa2bbd31f0ea60b4e7bf17e888">
+<meta property="article:published_time" content="2023-03-10T01:25:41.000Z">
+<meta property="article:modified_time" content="2023-04-12T13:58:30.408Z">
+<meta property="article:author" content="人生几何">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hbfile.huaban.com/img/home/banner/a3e4f1047d95d7b87d0faa2bbd31f0ea60b4e7bf17e888">
+  
+  
+  
+  <title>npm与包 - 251-4</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":3},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>251-4</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="npm与包"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        人生几何
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-10 09:25" pubdate>
+          2023年3月10日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k 字
+        
+      </span>
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">npm与包</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="npm与包"><a href="#npm与包" class="headerlink" title="npm与包"></a>npm与包</h1><p>1、包</p>
+<ol>
+<li><p>什么是包</p>
+<p> Node.js中的第三方模块又叫做包。<br> 就像电脑和计算机指的是相同的东西，第三方模块和包指的是同一个概念，只不过叫法不同</p>
+</li>
+<li><p>包的来源</p>
+<p> 不同于Node.js中的内置模块与自定义模块，包是由第三方个人或团队开发出来的，免费供所有人使用</p>
+<p> 注意：Node.js中的包都是免费且开源的，不需要付费即可免费下载使用</p>
+</li>
+<li><p>为什么需要包</p>
+<p> 由于Node.js的内置模块仅提供了一些底层的API，导致在基于内置模块进行项目开发的时候，效率很低。</p>
+<p> 包是基于内置模块分装出来的，提供了更高级、更方便的API，极大的提高了开发效率</p>
+<p> 包和内置模块之间的关系，类似于jQuery和浏览器内置API之间的关系</p>
+</li>
+<li><p>从哪里下载包</p>
+<p> 国外有一家IT公司，叫做npm，Inc，这家公司旗下有一个非常著名的网站：<a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm</a>，它是全球最大的包共享平台，你可以从这个网站上搜索到任何你需要的包，只要你有足够的耐心！</p>
+<p> 到目前位置，全球约1100多万的开发人员，通过这个包共享平台，开发共享了超过120多万个包供我们使用</p>
+<p> npm，Inc。公司提供了一个地址为<a target="_blank" rel="noopener" href="https://registry.npmjs.org/">https://registry.npmjs.org/</a> 的服务器，来对外共享所有的包，我们可以从这个服务器上下载自己所需的包</p>
+<p> 注意：</p>
+<pre><code class="hljs"> 从https://www.npmjs.com/ 网站上搜索自己所需要的包
+ 从https://registry.npmjs.org/ 服务器上下载自己需要的包
+</code></pre>
+</li>
+<li><p>如何下载包</p>
+<p> npm,Inc公司提供了一个包管理工具，我们可以使用这个包管理工具，从<a target="_blank" rel="noopener" href="https://registry.npmjs.org/">https://registry.npmjs.org/</a> 服务器把需要的包下载到本地</p>
+<p> 这个包管理工具的名字叫做Node Package Manager(简称npm包管理工具)，这个包管理工具随着Node.js的安装包一起被安装到了用户的电脑上</p>
+<p> 大家可以在终端中执行npm -v命令，来查看自己电脑上所安装的npm包管理工具的版本号；</p>
+</li>
+</ol>
+<p>2、npm初体验</p>
+<ol>
+<li><p>格式化时间的传统做法(具体看14.dataFormat.js~15.test.js)</p>
+<ol>
+<li>创建格式化时间的自定义模块</li>
+<li>定义格式化时间的方法</li>
+<li>创建补零函数</li>
+<li>从自定义模块中导入格式化时间的函数</li>
+<li>导入格式化时间的自定义模块</li>
+<li>调用格式化时间的函数</li>
+</ol>
+</li>
+<li><p>格式化时间的高级做法</p>
+<ol>
+<li>使用npm包管理工具，在项目中安装格式化时间的包moment</li>
+<li>使用require()导入格式化时间的包</li>
+<li>参考moment的官方API文档对时间进行格式化</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span><span class="hljs-number">1</span>. 导入moment包<br><br>const moment=require(<span class="hljs-string">&#x27;moment&#x27;</span>);<br><br><span class="hljs-regexp">//</span><span class="hljs-number">2</span>. 参考moment官方API文件，调用对应的方法，对时间进行格式化<br><br><span class="hljs-regexp">//</span><span class="hljs-number">2.1</span>调用moment()方法，得到当前的时间<br><br><span class="hljs-regexp">//</span><span class="hljs-number">2.2</span> 针对当前的时间，调用format()方法，按照指定的格式进行时间的格式化<br><br>const dt=moment().format(<span class="hljs-string">&#x27;YYY-MM-DD HH:mm:ss&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li><p>在项目中安装包的命令</p>
+<p> 如果想在项目中安装指定名称的包，需要运行如下的命令：</p>
+<pre><code class="hljs"> npm install 包的完整名称
+</code></pre>
+<p> 上述的装包命令，可以简写成如下格式：</p>
+<pre><code class="hljs"> npm i 完整的包名称
+</code></pre>
+</li>
+<li><p>初次装包后多了那些文件</p>
+<p> 初次装包完成后，在项目中文件夹下多一个叫做node_modules的文件夹和package-lock.json的配置文件</p>
+<p> 其中：</p>
+<p> node_modules文件夹用来存放所有已安装到项目中的包，require()导入第三方包时，就是从这个目录中查找并加载包</p>
+<p> package-lock.json配置文件用来记录node_modules目录下的每一个包的下载信息，例如包的名字、版本号、下载地址等。</p>
+<p> 注意：程序员不要手动修改node_modules或package-lock.join文件中任何代码，npm包管理工具会自动维护它们</p>
+</li>
+<li><p>安装指定版本的包</p>
+<p> 默认情况下，使用npm install命令安装包的时候，会自动安装最新版本的包。如果需要安装指定版本的包，可以在包名之后，通过@符号指定具体的版本，例如：</p>
+</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">const</span> i moment@<span class="hljs-number">2</span>.<span class="hljs-number">22</span>.<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<ol start="6">
+<li><p>包的语义化版本规范</p>
+<p> 包的版本号是以‘点分十进制’形式进行定义的，总共有三位数字，例如2.24.0</p>
+<p> 其中每一位数字所代表的含义如下：</p>
+<pre><code class="hljs"> 第一位数字：大版本
+ 第二位数字：功能版本
+ 第三位数字：Bug修复版本
+
+ 版本号提升的规则：只要前面的版本号增长了，则后面的版本号归零
+</code></pre>
+</li>
+</ol>
+<p>3、包管理配置文件</p>
+<pre><code class="hljs">npm规定，在项目根目录中，必须提供一个叫做package.json的包管理配置文件，用来记录与项目有关的一些配置信息。例如
+
+    项目的名称、版本号、描述等
+    项目中都用到了哪些包
+    哪些包在开发和部署时都需要用到
+</code></pre>
+<ol>
+<li><p>多人协作的问题</p>
+<p> 遇到的问题：第三方包的体积过大，不方便团队成员之间共享项目源代码</p>
+<p> 解决方案：共享时剔除node_modules</p>
+</li>
+<li><p>如何记录项目中安装了哪些包</p>
+<p> 在项目根目录中，创建一个叫做package.json的配置文件，即可用来记录项目中安装哪些包。从而方便剔除node_modules目录之后，在团队成员之间共享项目的源代码</p>
+<p> 注意：今后项目开发中，一定要把node_modules文件夹，添加到.gitignore忽略文件中</p>
+</li>
+<li><p>快速创建package.json</p>
+<p> npm包管理工具提供了一个快捷命令，可以在执行命令时所处的目录中，快速创建package.json这个包管理配置文件：</p>
+<pre><code class="hljs"> //作用：在执行命令所处的目录中，快速新建package.json文件
+ npm init -y
+</code></pre>
+<p> 注意：</p>
+<ol>
+<li>上述命令只能在英文的目录中成功运行！所以，项目文件夹的名称一定要使用英文命名，不要使用中文，不能出现空格</li>
+<li>运行npm install命令安装包的时候，npm包管理工具自动把包的名称和版本号，记录到package.json中</li>
+</ol>
+</li>
+<li><p>dependencies节点</p>
+<p> package.json文件中，有一个dependencies节点，专门来记录您使用npm install命令安装了哪些包。</p>
+</li>
+<li><p>一次性安装所有的包</p>
+<p> 当我们拿到一个剔除了node_modules的项目之后，需要先把所有的包下载到项目中，才能将项目运行起来</p>
+</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>由于项目运行依赖于moment这个包，如果没有提前安装好这个包，就会报如下的错误：<br>  <br>    Error:Cannot find module <span class="hljs-string">&#x27;moment&#x27;</span>;<br><br>可以运行npm install命令(或npm i)一次性安装所有的依赖包：<br><br> <span class="hljs-regexp">//</span>执行npm install命令时，npm包管理工具会先读取package.json中的dependencies节点，<br><br> <span class="hljs-regexp">//</span>读取到已记录的所有依赖包名称和版本号之后，npm包管理工具会把这些包一次性下载到项目中<br><br>    npm install<br></code></pre></td></tr></table></figure>
+<ol start="6">
+<li><p>卸载包</p>
+<p> 可以运行npm uninstall命令，来卸载指定的包：</p>
+</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> uninstall moment<br></code></pre></td></tr></table></figure>
+<pre><code class="hljs">    注意：npm uninstall命令执行成功后，会把卸载的包，自动从package.json的dependencies中移除掉
+</code></pre>
+<ol start="7">
+<li><p>devDependencies节点</p>
+<p> 如果某些包只在项目开发阶段会用到，在项目上线之后不会用到，则建议把这些包记录到devDependencies节点中</p>
+<p> 与之对应的，如果某些包在开发和项目上线之后都需要用到，则建议把这些包记录到dependencies节点中</p>
+<p> 您可以使用如下的命令，将包记录到devDependencies节点中：</p>
+</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 安装指定的包，并记录到devDependencies节点中<br>npm i 包名 -D<br></code></pre></td></tr></table></figure>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs q"><span class="hljs-comment">//注意：上述命令是简写形式，等价于下面完整的写法：</span><br>npm install 包名 --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
+<p>4、解决下包速度慢的问题</p>
+<ol>
+<li><p>为什么下包速度慢</p>
+<p> 在使用npm下包的时候，默认从外国的<a target="_blank" rel="noopener" href="https://registry.npmjs.org/">https://registry.npmjs.org/</a> 服务器进行下载，此时，网络数据的传输需要经过漫长的海底光缆，因此下包速度会很慢</p>
+<p> <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B5%B7%E5%BA%95%E5%85%E7%BC%86/4107830">https://baike.baidu.com/item/%E6%B5%B7%E5%BA%95%E5%85%E7%BC%86/4107830</a><br> <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%AD%E7%BE%8E%E6%B5%B7%E5%BA%95%E5%BA%95%E5%85%89%E7%BC%86/10520363">https://baike.baidu.com/item/%E4%B8%AD%E7%BE%8E%E6%B5%B7%E5%BA%95%E5%BA%95%E5%85%89%E7%BC%86/10520363</a><br> <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/APG/2364772?fr=aladdin">https://baike.baidu.com/item/APG/2364772?fr=aladdin</a></p>
+</li>
+<li><p>淘宝NPM镜像服务器</p>
+<p> 淘宝在国内搭建了一个服务器，专门把国外官方服务器上的包同步到国内的服务器，然后再国内提供下包的服务。从而极大的提高了下包的速度</p>
+<p> 扩展：</p>
+<pre><code class="hljs"> 镜像(Mirroring)是一种文件存储形式，一个磁盘上的数据在另一个磁盘上存在一个完全相同的副本即为镜像
+</code></pre>
+</li>
+<li><p>切换npm的下包镜像源</p>
+<p> 下包的镜像源，指的就是下包的服务器地址。</p>
+</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment">#查看当前的下包镜像源</span><br>npm<span class="hljs-built_in"> config </span><span class="hljs-built_in">get</span> registry<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-comment">#将下包的镜像源切换为淘宝镜像源</span><br>npm<span class="hljs-built_in"> config </span><span class="hljs-built_in">set</span> <span class="hljs-attribute">registry</span>=https://registry.npm.taobao.org/<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment">#检查镜像源是否下载成功</span><br>npm<span class="hljs-built_in"> config </span><span class="hljs-built_in">get</span> registry<br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>nrm</p>
+<p> 为了更方便的切换下包的镜像源，我们可以安装nrm这个小工具，利用nrm提供的终端命令，可以快速查看和切换下包的镜像源</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#通过npm包管理器，将nrm安装为全局可用的工具</span><br>npm i nrm -g<br><span class="hljs-comment">#查看所有可用的镜像源</span><br>nrm <span class="hljs-built_in">ls</span><br><span class="hljs-comment">#将下包的镜像源切换为taobao镜像</span><br>nrm use taobao<br></code></pre></td></tr></table></figure>
+<p>5、包的分类</p>
+<pre><code class="hljs">使用npm包管理工具下载的包，共分为两大类，分别是：
+
+项目包
+
+全局包
+</code></pre>
+<ol>
+<li><p>项目包</p>
+<p> 那些被安装到项目的node_modules目录中的包，都是项目包</p>
+<p> 项目包又分为两类，分别是：</p>
+<p> 开发依赖包(被记录到devDependencies节点中的包，只在开发期间会用到)<br> 核心依赖包(被记录到dependencies节点中的包，在开发期间和项目上线之后都会用)</p>
+</li>
+<li><p>全局包</p>
+<p> 在执行npm install命令时，如果提供了-g参数，则会把包安装为全局包。<br> 全局包会被安装到C:\Users\用户目录\AppData\Roaming\npm\node_modules 目录下。</p>
+</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i 包名 -g           <span class="hljs-comment">#全局包安装指定的包</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> uninstall 包名 -g   <span class="hljs-comment">#卸载全局安装的包</span><br></code></pre></td></tr></table></figure>
+<pre><code class="hljs">注意：
+1. 只有工具性质的包，才有全局安装的必要性，因为它们提供了好用的终端命令
+2. 判断某个包是否需要全局安装后才能使用，可以参考官网提供的使用说明即可
+</code></pre>
+<ol start="3">
+<li><p>i5ting_toc</p>
+<p> i5ting_toc是一个可以把md文档转为html页面的小工具，使用步骤如下：</p>
+</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment">#将i5ting_toc安装为全局包</span><br>npm <span class="hljs-keyword">install</span> -g i5ting_toc<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#调用i5ting_toc，轻松实现md转html的功能</span><br>i5ting_toc <span class="hljs-operator">-f</span> 要转换的<span class="hljs-built_in">md</span>文件路径 <span class="hljs-literal">-o</span><br></code></pre></td></tr></table></figure>
+<p>6、规范的包结构</p>
+<pre><code class="hljs">在清楚了包的概念，以及如何下载和使用之后，接下来，我们深入了解一下包的内部结构
+
+一个规范的包，它的组成结构必须符合以下3点要求
+
+1. 包必须以单独的目录而存在
+
+2. 包的顶级目录下必须包含package.json这个包管理配置文件
+
+3. package.json中必须包含name,version,main这三个属性，分别代表包的名字、版本号、包的入口。
+
+注意：以上3点要求是一个规范的包结构遵循的格式，关于更多的约束，可以参考如下网址：
+
+https://yarnpkg.com/zh-Hans/docs/package-json
+</code></pre>
+<p>7、开发属于自己的包</p>
+<ol>
+<li><p>需要实现的功能</p>
+<ol>
+<li>格式化日期</li>
+<li>转义HTML中的特殊字符&#x2F;&#x2F;用到.htmlEscape()方法</li>
+<li>还原HTML中的特殊字符&#x2F;&#x2F;用到htmlUnEscape()方法</li>
+</ol>
+</li>
+<li><p>初始化包的基本结构</p>
+<ol>
+<li><p>新键itheima-tools文件夹，作为包的根目录</p>
+</li>
+<li><p>在itheima-tools文件夹中，新增如下三个文件：</p>
+<p> package.json(包管理配置文件)<br> index.js(包的入口文件)<br> README.md(包的说明文档)</p>
+</li>
+</ol>
+</li>
+<li><p>初始化package.json</p>
+</li>
+<li><p>在index.js中定义格式化时间的方法</p>
+</li>
+<li><p>在index.js中定义转义HTML的方法</p>
+</li>
+<li><p>在index.js中定义还原HTML的方法</p>
+</li>
+<li><p>将不同的功能进行模块化拆分</p>
+<ol>
+<li>将格式化时间的功能，拆分到src -&gt; dataFormat.js中</li>
+<li>将处理HTML字符串的功能，拆分到src -&gt; htmlEscape.js中</li>
+<li>在index.js中，导入两个模块，得到需要向外共享的方法</li>
+<li>在index.js中，使用module.exports把对应的方法共享出去</li>
+</ol>
+</li>
+<li><p>编写包的说明文档</p>
+<p> 包根目录中的README.md文件，是包的使用说明文档。通过它，我们可以事先把包的使用说明，以markdown的格式写出来，方便用户参考.</p>
+<p> README文件中具体写什么内容，说明强制性的要求；只要能够清晰地把包地作用、用法、注意事项等描述清楚即可。</p>
+<p> 我们所创建地这个包地README.md文档中，会包含以下6项内容；</p>
+<p> 安装方式、导入方式、格式化时间、转义HTML中地特殊字符、还原HTML中的特殊字符、开源协议</p>
+</li>
+</ol>
+<p>8、注册npm账号</p>
+<ol>
+<li><p>注册npm账号</p>
+<ol>
+<li>访问<a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm</a> 网站，点击sign up按钮，进入注册用户界面</li>
+<li>填写账号相关的信息：Full Name、Public Email、Username、Password</li>
+<li>点击Create an Account按钮，注册账号</li>
+<li>登录邮箱，点击验证链接，进行账号的验证</li>
+</ol>
+</li>
+<li><p>登录npm账号</p>
+<p> npm注册注册完后，可以在终端中执行npm login命令，依次输入用户名、密码、邮箱后，即可登录成功</p>
+<pre><code class="hljs"> 注意：在运行npm login命令之前，必须先把下包的服务器地址切换为npm的官方服务器，否则会导致发布包失败
+</code></pre>
+</li>
+<li><p>把包发布到npm上</p>
+<p> 将终端切换到包的根目录之后，运行npm publish命令，即可将包发布到npm上(注意：包名不能雷同)。</p>
+</li>
+<li><p>删除已发布的包</p>
+<p> 运行npm unpublish包名 –force命令，即可从npm删除已发布的包。</p>
+<blockquote>
+<p>注意：<br>     1. npm unpublish命令只能删除72小时以内发布的包<br>     2. npm unpublish删除的包，在24小时内不允许重复发布<br>     3. 发布包的时候要慎重，尽量不要往npm上发布没有意义的包！</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="模块的加载机制"><a href="#模块的加载机制" class="headerlink" title="模块的加载机制"></a>模块的加载机制</h2><p>1、优先从缓存中加载</p>
+<pre><code class="hljs">模块在第一次加载后会被缓存。在这也意味着多次调用require()不会导致模块的代码被执行多次
+
+注意：不论是内置模块、用户自定义模块、还是第三方模块，它们都会优先从缓存中加载，从而提高模块的加载效率。
+</code></pre>
+<p>2、内置模块的加载机制</p>
+<pre><code class="hljs">内置模块是由Node.js官方提供的模块，内置模块的加载优先级最高。
+
+例如，require(&#39;fs&#39;)始终返回内置的fs模块，即使在node_modules目录下有名字相同的包也叫做fs
+</code></pre>
+<p>3、自定义模块的加载机制</p>
+<pre><code class="hljs">使用require()加载自定义模块时，必须指定以./或../开头的路径标识符。在加载自定义模块时，如果没有指定./或../这样的路径标识符，则node会把它当作内置模块或第三方模块进行加载
+
+同时，在使用require()导入自定义模块时，如果省略了文件的扩展名，则Node.js会按顺序分别尝试加载以下的文件：
+
+1. 按照确切的文件名进行加载
+2. 补全.js扩展名进行加载
+3. 补全.json扩展名进行加载
+4. 补全.node扩展名进行加载
+5. 加载失败，终端报错
+</code></pre>
+<p>4、 第三方模块的加载机制</p>
+<pre><code class="hljs">如果传递给require()的模块标识符不是一个内置模块，也没有以&#39;./&#39;或&#39;../&#39;开头，则Node.js会从当前模块的父目录开始，尝试从/node_modules文件夹中加载第三方模块
+
+如果没有找到对应的第三方模块，则移动到上一层父目录中，进行加载，直到文件系统的根目录。
+
+例如，假设在&#39;C:/Users/dsds/dsds/dsd/foo.js&#39;文件里调用了require(&#39;tools&#39;)，则Node.js会按以下顺序查找：
+</code></pre>
+<p>5、目录作为模块</p>
+<pre><code class="hljs">当目录作为模块标识符，传递给require()进行加载的模块，有以下三种方式：
+
+1. 在被加载的目录下查找一个叫做package.json的文件，并寻找main属性，作为require()加载的入口
+
+2. 如果目录里没有package.json文件，或者main入口不存在或无法解析，则Node.js会试图加载目录下的index.js文件
+
+3. 如果以上两步都失败了，则Node.js会在终端打印错误消息，报告模块的缺失：Error:Cannot find module &#39;xxx&#39;;
+</code></pre>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/node/">#node</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/10/node-express/" title="node_express">
+                        <span class="hidden-mobile">node_express</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
